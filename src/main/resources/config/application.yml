@@ -1,5 +1,6 @@
 
 
+
 server:
     port: 1234
 #    address: localhost
@@ -15,3 +16,9 @@ lc:
         initCon:          "2"
         maxCon:           "10"
         baseDn:           "dc=bhxh,dc=vn"
+    #hazelcast:
+    #    config:           "classpath:hazelcast.xml"
+
+spring:
+  application:
+    name: ldap-cache

@@ -2,6 +2,8 @@ package com.tecapro.ldap.cache.config;
 
 import com.hazelcast.config.ClasspathXmlConfig;
 import com.hazelcast.config.Config;
+import com.hazelcast.config.FileSystemXmlConfig;
+import com.hazelcast.config.UrlXmlConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import com.tecapro.ldap.cache.CacheFactory;
@@ -12,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * Created by chai65 on 12/20/2016.
@@ -26,8 +31,8 @@ public class ApplicationConfiguration {
 
     @Bean
     public HazelcastInstance hazelcastInstance(
-            @Value("${ls.hazelcast.config:hazelcast.xml}") String hazelcastPath){
-        Config config = new ClasspathXmlConfig(hazelcastPath);
+            @Value("${ls.hazelcast.config:classpath:hazelcast.xml}") String hazelcastPath) throws IOException {
+        Config config = new UrlXmlConfig(hazelcastPath);
         return Hazelcast.newHazelcastInstance(config);
     }
 

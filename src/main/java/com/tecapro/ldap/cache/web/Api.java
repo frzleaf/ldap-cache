@@ -28,19 +28,19 @@ public class Api {
     @Autowired
     ApplicationProperties applicationProperties;
 
-    @RequestMapping(value = "/{objectClass}/{attribute}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{objectClass}/{attName}", method = RequestMethod.GET)
     public WebAsyncTask<ResponseEntity<String>> getDnFromAttribute(
             @PathVariable("objectClass") String objectClass,
-            @PathVariable("attribute") String attribute,
-            @RequestParam("att") String attValue,
+            @PathVariable("attName") String attName,
+            @RequestParam("attValue") String attValue,
             @RequestParam(value = "base", required = false) String baseDn) {
 
-        return new WebAsyncTask<ResponseEntity<String>>(applicationProperties.getApiTimeout(),
+        return new WebAsyncTask<>(applicationProperties.getApiTimeout(),
                 () -> {
-                    AttributeToDnCache a2dn = cacheFactory.a2d(objectClass, attribute, baseDn);
+                    AttributeToDnCache a2dn = cacheFactory.a2d(objectClass, attName, baseDn);
                     if (a2dn == null) {
                         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                                .body("Cache " + AttributeToDnCache.a2dName(objectClass, attribute, baseDn) + " might not have been initialized");
+                                .body("Cache " + AttributeToDnCache.a2dName(objectClass, attName, baseDn) + " might not have been initialized");
                     }
                     String foundDn = a2dn.getDn(attValue);
                     if (foundDn != null && !"".equals(foundDn)) {
@@ -51,10 +51,10 @@ public class Api {
     }
 
 
-    @RequestMapping(value = "/{objectClass}/{attribute}", method = RequestMethod.POST)
+    @RequestMapping(value = "/{objectClass}/{attName}", method = RequestMethod.POST)
     public ResponseEntity updateA2d(
             @PathVariable("objectClass") String objectClass,
-            @PathVariable("attribute") String attribute,
+            @PathVariable("attName") String attribute,
             @RequestParam(value = "base", required = false) String baseDn,
             @RequestParam(value = "force", defaultValue = "false", required = false) boolean force
     ) {
