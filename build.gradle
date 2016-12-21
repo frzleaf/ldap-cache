@@ -31,7 +31,7 @@ apply plugin: 'org.springframework.boot'
 
 
 springBoot {
-    mainClass = 'com.tecapro.ldap.services.Launcher'
+    mainClass = 'com.tecapro.ldap.cache.Launcher'
     executable = true
     buildInfo()
 }

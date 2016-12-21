@@ -26,7 +26,7 @@ public class ApplicationConfiguration {
 
     @Bean
     public HazelcastInstance hazelcastInstance(
-            @Value("${ls.hazelcast.config:classpath:hazelcast.xml}") String hazelcastPath){
+            @Value("${ls.hazelcast.config:hazelcast.xml}") String hazelcastPath){
         Config config = new ClasspathXmlConfig(hazelcastPath);
         return Hazelcast.newHazelcastInstance(config);
     }

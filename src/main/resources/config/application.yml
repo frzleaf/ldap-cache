@@ -11,7 +11,7 @@ lc:
         host:             "10.0.123.11"
         port:             "9389"
         timeOut:          "100"
-        maxResult:        "300000"
+        maxResult:        "500000"
         initCon:          "2"
         maxCon:           "10"
         baseDn:           "dc=bhxh,dc=vn"

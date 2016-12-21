@@ -15,7 +15,7 @@ public class CacheFactory {
 
     private LDAPConnectionPool pool;
     private HazelcastInstance hazelcastInstance;
-    private Map<Integer, AttributeToDnCache> a2dCaches = new HashMap<>();
+    private Map<String, AttributeToDnCache> a2dCaches = new HashMap<>();
 
 
     /**
@@ -27,7 +27,7 @@ public class CacheFactory {
     }
 
 
-    public CrashA2DCache createA2D(String name) {
+    public CrashA2DCache createA2D() {
         return new CrashA2DCache(hazelcastInstance, pool, this);
     }
 
@@ -63,25 +63,21 @@ public class CacheFactory {
         }
 
         public AttributeToDnCache get() {
-            String mapName = String.join(">", instance.getObjectClass(), instance.get)
-            hazelcastInstance.getMap()
-            cacheFactory.getA2dCaches()
-                    .put(AttributeToDnCache.insensitiveHash(instance.getObjectClass(),
-                            instance.getAttributeName(),
-                            instance.getBaseDn()),
-                        instance);
+            IMap<String, String> map = this.hazelcastInstance.getMap(instance.toString());
+            instance.init(map);
+            cacheFactory.getA2dCaches().put(instance.toString(),instance);
             return instance;
         }
 
     }
 
 
-    public Map<Integer, AttributeToDnCache> getA2dCaches() {
+    public Map<String, AttributeToDnCache> getA2dCaches() {
         return a2dCaches;
     }
 
 
     public AttributeToDnCache a2d(String objectClass, String attributeName, String baseDn){
-        return a2dCaches.get(AttributeToDnCache.insensitiveHash(objectClass,attributeName, baseDn));
+        return a2dCaches.get(AttributeToDnCache.a2dName(objectClass,attributeName, baseDn));
     }
 }

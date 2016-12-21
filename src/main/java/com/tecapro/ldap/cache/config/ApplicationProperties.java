@@ -2,17 +2,19 @@ package com.tecapro.ldap.cache.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by chai65 on 12/20/2016.
  */
+@Component
 @ConfigurationProperties(prefix = "lc")
 public class ApplicationProperties {
 
     private LdapProperties ldap;
 
-    @Value("${api.timeout}")
-    private long apiTimeout = 5000;
+    @Value("${api.timeout:5000}")
+    private long apiTimeout;
 
     public LdapProperties getLdap() {
         return ldap;

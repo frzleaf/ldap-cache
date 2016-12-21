@@ -22,6 +22,7 @@ public class AttributeToDnCache {
 
 
     public void init(IMap<String, String> store){
+        Assert.isNull(this.store, "Store has been initialized");
         this.store = store;
     }
 
@@ -46,7 +47,14 @@ public class AttributeToDnCache {
         }
     }
 
+
+    public int size(){
+        return this.store.size();
+    }
+
+
     public String getDn(String attribute){
+        attribute = attribute.trim();
         return this.store.get(attribute);
     }
 
@@ -80,37 +88,22 @@ public class AttributeToDnCache {
         this.baseDn = baseDn;
     }
 
+    @Override
+    public String toString() {
+        return AttributeToDnCache.a2dName(objectClass, attributeName, baseDn);
+    }
 
-    /**
-     * @param objectClass
-     * @param attributeName
-     * @param baseDn
-     * @return
-     */
-    public static int hash(String objectClass, String attributeName, String baseDn){
+
+    public static String a2dName(String objectClass, String attributeName, String baseDn){
         if ( objectClass == null ){
             objectClass = "";
         }
         if ( attributeName == null ){
-            objectClass = "";
-        }
-
-        if ( baseDn == null ){
-            baseDn = "";
-        }
-        return String.join(",", objectClass, attributeName, baseDn).hashCode();
-    }
-    public static int insensitiveHash(String objectClass, String attributeName, String baseDn){
-        if ( objectClass == null ){
-            objectClass = "";
-        }
-        if ( attributeName == null ){
-            objectClass = "";
+            attributeName = "";
         }
         if ( baseDn == null ){
             baseDn = "";
         }
-        return hash(objectClass.toLowerCase(), attributeName.toLowerCase(), baseDn.toLowerCase());
+        return String.join(">", objectClass.toLowerCase(), attributeName.toLowerCase(), baseDn.toLowerCase());
     }
-
 }
