@@ -1,0 +1,17 @@
+
+
+server:
+    port: 1234
+#    address: localhost
+
+lc:
+    ldap:
+        bindDn:           "cn=Directory Manager Server1"
+        password:         "Oracle_123456a#"
+        host:             "10.0.123.11"
+        port:             "9389"
+        timeOut:          "100"
+        maxResult:        "300000"
+        initCon:          "2"
+        maxCon:           "10"
+        baseDn:           "dc=bhxh,dc=vn"

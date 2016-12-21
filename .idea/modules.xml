@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ldap-cache.iml" filepath="$PROJECT_DIR$/.idea/modules/ldap-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ldap-cache_main.iml" filepath="$PROJECT_DIR$/.idea/modules/ldap-cache_main.iml" group="ldap-cache" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ldap-cache_test.iml" filepath="$PROJECT_DIR$/.idea/modules/ldap-cache_test.iml" group="ldap-cache" />
+    </modules>
+  </component>
+</project>
